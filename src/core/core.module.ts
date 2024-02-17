@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config'
-import { configOptions } from 'src/config'
+import { ConfigModule } from '@nestjs/config';
+import { configOptions } from 'src/config';
 
 @Module({
-	imports: [
-		ConfigModule.forRoot(configOptions)
-	]
+  imports: [ConfigModule.forRoot(configOptions)],
 })
 export class CoreModule {}
