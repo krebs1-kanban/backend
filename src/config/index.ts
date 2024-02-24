@@ -1,7 +1,7 @@
-import { ConfigModuleOptions } from '@nestjs/config'
-import { serverConfigLoader } from './loaders/server.loader'
-import { jwtConfigLoader } from './loaders/jwt.loader'
-import { configSchema } from './schemas/config.schema'
+import { ConfigModuleOptions } from '@nestjs/config';
+import { jwtConfigLoader } from './loaders/jwt.loader';
+import { serverConfigLoader } from './loaders/server.loader';
+import { configSchema } from './schemas/config.schema';
 
 export const configOptions: ConfigModuleOptions = {
   envFilePath: '.env',
