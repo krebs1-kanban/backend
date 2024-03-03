@@ -8,6 +8,7 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
+import { ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { CookieService } from './cookie.service';
@@ -23,6 +24,7 @@ export class AuthController {
   ) {}
 
   @Post('sign-up')
+  @ApiCreatedResponse()
   @HttpCode(HttpStatus.CREATED)
   async signUp(
     @Body() body: SignUpDto,
@@ -39,6 +41,7 @@ export class AuthController {
   }
 
   @Post('sign-in')
+  @ApiOkResponse()
   @HttpCode(HttpStatus.OK)
   async signIn(
     @Body() body: SignInDto,
@@ -55,6 +58,7 @@ export class AuthController {
   }
 
   @Post('sign-out')
+  @ApiOkResponse()
   @HttpCode(HttpStatus.OK)
   @UseGuards(AuthGuard)
   signOut(@Res({ passthrough: true }) res: Response) {
@@ -62,6 +66,7 @@ export class AuthController {
   }
 
   @Get('session')
+  @ApiOkResponse()
   @HttpCode(HttpStatus.OK)
   @UseGuards(AuthGuard)
   getSessionInfo(@SessionInfo() session: GetSessionInfoDto) {
