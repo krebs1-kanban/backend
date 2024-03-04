@@ -27,7 +27,7 @@ export class SignUpDto {
 
 export class GetSessionInfoDto {
   @ApiProperty({ example: 'clt4n9p8c0000wxj5r339y91u' })
-  id: number;
+  id: string;
 
   @ApiProperty({ example: 'test@test.com' })
   email: string;

@@ -16,6 +16,7 @@ import { PasswordService } from './password.service';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: jwtFactory,
+      global: true,
     }),
   ],
   providers: [AuthService, CookieService, PasswordService],

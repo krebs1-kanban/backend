@@ -1,10 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
+import { AccountService } from '../account/account.service';
 import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly client: PrismaService) {}
+  constructor(
+    private readonly client: PrismaService,
+    private readonly accountService: AccountService,
+  ) {}
 
   getById(id: string) {
     return this.client.user.findUnique({
@@ -22,12 +26,16 @@ export class UsersService {
     });
   }
 
-  create(data: CreateUserDto) {
-    return this.client.user.create({
+  async create(data: CreateUserDto) {
+    const user = await this.client.user.create({
       data: {
         ...data,
       },
     });
+
+    await this.accountService.create(user.id);
+
+    return user;
   }
 
   update(id: string, data: CreateUserDto) {
