@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Exclude, Expose } from 'class-transformer';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { Exclude } from 'class-transformer';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Account } from 'prisma/generated/client';
 
 export class AccountDto implements Account {
@@ -30,6 +30,7 @@ export class AccountDto implements Account {
 
 export class UpdateAccountDto {
   @ApiProperty({ example: 'new name', nullable: true })
-  @Expose()
+  @IsString({ message: "Поле 'name' должно быть строкой" })
+  @IsOptional()
   name?: string;
 }
