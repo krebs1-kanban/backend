@@ -23,7 +23,7 @@ export class AccountDto implements Account {
   @Exclude()
   updatedAt: Date;
 
-  constructor(partial: Partial<UpdateAccountDto>) {
+  constructor(partial: Partial<AccountDto>) {
     Object.assign(this, partial);
   }
 }

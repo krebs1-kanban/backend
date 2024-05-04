@@ -57,7 +57,7 @@ model Project {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   name        String
-  inviteLink  String?     @unique @map("invite_link")
+  inviteLink  String?     @map("invite_link")
   defaultRole ProjectRole @default(OBSERVER) @map("default_role")
 
   MembersOnProjects MembersOnProjects[]

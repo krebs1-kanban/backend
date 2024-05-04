@@ -8,12 +8,18 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { CookieService } from './cookie.service';
 import { SessionInfo } from './decorators/SessionInfo.decorator';
 import { GetSessionInfoDto, SignInDto, SignUpDto } from './dto/';
+import { EmailExistsError } from './errors';
 import { AuthGuard } from './guards/auth.guard';
 
 @Controller('auth')
@@ -43,6 +49,7 @@ export class AuthController {
 
   @Post('sign-in')
   @ApiOkResponse()
+  @ApiBadRequestResponse({ type: EmailExistsError })
   @HttpCode(HttpStatus.OK)
   async signIn(
     @Body() body: SignInDto,
@@ -67,7 +74,7 @@ export class AuthController {
   }
 
   @Get('session')
-  @ApiOkResponse()
+  @ApiOkResponse({ type: GetSessionInfoDto })
   @HttpCode(HttpStatus.OK)
   @UseGuards(AuthGuard)
   getSessionInfo(@SessionInfo() session: GetSessionInfoDto) {
