@@ -30,6 +30,7 @@ model Account {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   name String?
+  avatarImg String?
 
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique @map("user_id")
@@ -57,6 +58,7 @@ model Project {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   name        String
+  isArchived Boolean @default(false)
   inviteLink  String?     @map("invite_link")
   defaultRole ProjectRole @default(OBSERVER) @map("default_role")
 
@@ -72,6 +74,7 @@ model Board {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   name String
+  isArchived Boolean @default(false)
 
   project   Project @relation(fields: [projectId], references: [id])
   projectId String  @map("project_id")

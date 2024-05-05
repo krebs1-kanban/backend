@@ -17,6 +17,9 @@ export class AccountDto implements Account {
   @ApiProperty({ example: 'name', nullable: true })
   name: string | null;
 
+  @ApiProperty({ example: '/imgs/avatars/445849584.png', nullable: true })
+  avatarImg: string;
+
   @Exclude()
   createdAt: Date;
 

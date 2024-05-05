@@ -10,9 +10,13 @@ export class ProfileDto {
   @ApiProperty({ example: 'test@test.ru' })
   email: string;
 
+  @ApiProperty({ example: '/imgs/avatars/445849584.png', nullable: true })
+  avatarImg: string;
+
   constructor(data: ProfileDto) {
     this.userId = data.userId;
     this.name = data.name;
     this.email = data.email;
+    this.avatarImg = data.avatarImg;
   }
 }

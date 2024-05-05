@@ -17,6 +17,7 @@ export class ProfileService {
         account: {
           select: {
             name: true,
+            avatarImg: true,
           },
         },
       },
@@ -26,6 +27,7 @@ export class ProfileService {
       userId: data.id,
       email: data.email,
       name: data.account.name,
+      avatarImg: data.account.avatarImg,
     });
 
     return profile;
