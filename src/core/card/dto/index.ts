@@ -1,7 +1,66 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
+import {
+  IsDateString,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { Prisma } from 'prisma/generated/client';
 import { TagDto } from 'src/core/tag/dto';
+
+export class CreateCardDto {
+  @ApiProperty({ example: 'Card 1' })
+  @IsNotEmpty({ message: 'Поле "name" не должно быть пустым' })
+  @IsString({ message: 'Имя должно быть строкой' })
+  name: string;
+
+  @ApiProperty({
+    example: 'Card description 1',
+    nullable: true,
+    required: false,
+  })
+  @IsOptional()
+  @IsString({ message: 'Имя должно быть строкой' })
+  description: string;
+
+  @ApiProperty({
+    nullable: true,
+    required: false,
+  })
+  @IsOptional()
+  @IsDateString()
+  dueDateTime: Date;
+
+  @ApiProperty({ example: 'clt4n9p8c0000wxj5r339y91u' })
+  @IsNotEmpty({ message: 'Поле "listId" не должно быть пустым' })
+  @IsString({ message: 'id должно быть строкой' })
+  listId: string;
+}
+
+export class UpdateCardDto {
+  @ApiProperty({ example: 'List 1' })
+  @IsNotEmpty({ message: 'Поле "name" не должно быть пустым' })
+  @IsString({ message: 'Имя должно быть строкой' })
+  name: string;
+
+  @ApiProperty({
+    example: 'Card description 1',
+    nullable: true,
+    required: false,
+  })
+  @IsOptional()
+  @IsString({ message: 'Имя должно быть строкой' })
+  description: string;
+
+  @ApiProperty({
+    nullable: true,
+    required: false,
+  })
+  @IsOptional()
+  @IsDateString()
+  dueDateTime: Date;
+}
 
 type card = Prisma.CardGetPayload<{
   include: {
