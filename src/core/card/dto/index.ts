@@ -62,6 +62,13 @@ export class UpdateCardDto {
   dueDateTime: Date;
 }
 
+export class AddRemoveTagDto {
+  @ApiProperty({ example: 'clt4n9p8c0000wxj5r339y91u' })
+  @IsNotEmpty({ message: 'Поле "tagId" не должно быть пустым' })
+  @IsString({ message: 'id должно быть строкой' })
+  tagId: string;
+}
+
 type card = Prisma.CardGetPayload<{
   include: {
     tags: true;

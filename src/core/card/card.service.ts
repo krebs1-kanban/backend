@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
-import { CreateCardDto, UpdateCardDto } from './dto';
+import { AddRemoveTagDto, CreateCardDto, UpdateCardDto } from './dto';
 
 @Injectable()
 export class CardService {
@@ -25,6 +25,34 @@ export class CardService {
     const result = await this.client.card.update({
       where: { id: id },
       data: data,
+    });
+    return result;
+  }
+
+  async addTag(id: string, data: AddRemoveTagDto) {
+    const result = await this.client.card.update({
+      where: { id: id },
+      data: {
+        tags: {
+          connect: {
+            id: data.tagId,
+          },
+        },
+      },
+    });
+    return result;
+  }
+
+  async removeTag(id: string, data: AddRemoveTagDto) {
+    const result = await this.client.card.update({
+      where: { id: id },
+      data: {
+        tags: {
+          disconnect: {
+            id: data.tagId,
+          },
+        },
+      },
     });
     return result;
   }

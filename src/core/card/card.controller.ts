@@ -14,7 +14,7 @@ import {
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { CardService } from './card.service';
-import { CardDto, CreateCardDto, UpdateCardDto } from './dto';
+import { AddRemoveTagDto, CardDto, CreateCardDto, UpdateCardDto } from './dto';
 
 @Controller('cards')
 @ApiTags('cards')
@@ -36,6 +36,22 @@ export class CardController {
   @ApiOkResponse({ type: CardDto })
   async getById(@Param('id') id: string) {
     return new CardDto(await this.cardService.findById(id));
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Patch('add-tag/:id')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse({ type: CardDto })
+  async addTag(@Param('id') id: string, @Body() body: AddRemoveTagDto) {
+    return new CardDto(await this.cardService.addTag(id, body));
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Patch('remove-tag/:id')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse({ type: CardDto })
+  async removeTag(@Param('id') id: string, @Body() body: AddRemoveTagDto) {
+    return new CardDto(await this.cardService.removeTag(id, body));
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
