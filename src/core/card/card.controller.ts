@@ -8,10 +8,17 @@ import {
   Param,
   Patch,
   Post,
+  UploadedFiles,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import {
+  ApiConsumes,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { CardService } from './card.service';
 import { AddRemoveTagDto, CardDto, CreateCardDto, UpdateCardDto } from './dto';
@@ -28,6 +35,20 @@ export class CardController {
   @ApiCreatedResponse({ type: CardDto })
   async create(@Body() body: CreateCardDto) {
     return new CardDto(await this.cardService.create(body));
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Post('files/:id')
+  @UseInterceptors(FilesInterceptor('files'))
+  @ApiConsumes('multipart/form-data')
+  @HttpCode(HttpStatus.CREATED)
+  @ApiCreatedResponse({ type: CardDto })
+  async attachFile(
+    @Param('id') id: string,
+    @UploadedFiles() files: Array<Express.Multer.File>,
+  ) {
+    const card = this.cardService.attachFiles(id, files);
+    return card;
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

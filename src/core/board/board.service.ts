@@ -21,6 +21,7 @@ export class BoardService {
             cards: {
               include: {
                 tags: true,
+                files: true,
               },
             },
           },

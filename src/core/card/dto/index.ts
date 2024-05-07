@@ -7,6 +7,7 @@ import {
   IsString,
 } from 'class-validator';
 import { Prisma } from 'prisma/generated/client';
+import { FileDto } from 'src/core/file/dto';
 import { TagDto } from 'src/core/tag/dto';
 
 export class CreateCardDto {
@@ -62,6 +63,11 @@ export class UpdateCardDto {
   dueDateTime: Date;
 }
 
+export class AttachFilesDto {
+  @ApiProperty({ type: 'string', format: 'binary' })
+  files: any;
+}
+
 export class AddRemoveTagDto {
   @ApiProperty({ example: 'clt4n9p8c0000wxj5r339y91u' })
   @IsNotEmpty({ message: 'Поле "tagId" не должно быть пустым' })
@@ -72,6 +78,7 @@ export class AddRemoveTagDto {
 type card = Prisma.CardGetPayload<{
   include: {
     tags: true;
+    files: true;
   };
 }>;
 export class CardDto implements card {
@@ -102,11 +109,17 @@ export class CardDto implements card {
   @ApiProperty({ type: [TagDto] })
   tags: TagDto[];
 
-  constructor({ tags, ...data }: Partial<CardDto>) {
+  @ApiProperty({ type: [FileDto] })
+  files: FileDto[];
+
+  constructor({ tags, files, ...data }: Partial<CardDto>) {
     Object.assign(this, data);
 
     if (tags) {
       this.tags = tags.map((val) => new TagDto(val));
+    }
+    if (this.files) {
+      this.files = files.map((val) => new FileDto(val));
     }
   }
 }
