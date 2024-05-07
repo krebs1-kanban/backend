@@ -13,7 +13,6 @@ import {
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
-import { ProjectWithDetailsDto } from '../project/dto';
 import { BoardService } from './board.service';
 import {
   BoardDto,
@@ -39,7 +38,7 @@ export class BoardController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  @ApiOkResponse({ type: ProjectWithDetailsDto })
+  @ApiOkResponse({ type: BoardWithDetailsDto })
   async getById(@Param('id') id: string) {
     return new BoardWithDetailsDto(await this.boardService.findById(id));
   }
