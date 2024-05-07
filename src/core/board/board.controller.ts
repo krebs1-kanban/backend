@@ -36,6 +36,14 @@ export class BoardController {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
+  @Get('by-card/:id')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse({ type: BoardWithDetailsDto })
+  async getByCardId(@Param('id') id: string) {
+    return new BoardWithDetailsDto(await this.boardService.findByCardId(id));
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse({ type: BoardWithDetailsDto })
