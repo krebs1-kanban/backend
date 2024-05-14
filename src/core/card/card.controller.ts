@@ -2,6 +2,7 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -21,7 +22,14 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { CardService } from './card.service';
-import { AddRemoveTagDto, CardDto, CreateCardDto, UpdateCardDto } from './dto';
+import {
+  AddRemoveTagDto,
+  AttachFilesDto,
+  CardDto,
+  CreateCardDto,
+  DetachFileDto,
+  UpdateCardDto,
+} from './dto';
 
 @Controller('cards')
 @ApiTags('cards')
@@ -46,9 +54,17 @@ export class CardController {
   async attachFile(
     @Param('id') id: string,
     @UploadedFiles() files: Array<Express.Multer.File>,
+    @Body() {}: AttachFilesDto,
   ) {
     const card = this.cardService.attachFiles(id, files);
     return card;
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Delete('files/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async detachFile(@Param('id') id: string, @Body() body: DetachFileDto) {
+    this.cardService.detachFile(id, body);
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

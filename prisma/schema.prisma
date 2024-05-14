@@ -108,6 +108,7 @@ model List {
 
   name       String
   isArchived Boolean @default(false) @map("is_archived")
+  index      Int     @default(0)
 
   board   Board  @relation(fields: [boardId], references: [id])
   boardId String @map("board_id")
@@ -126,6 +127,7 @@ model Card {
   description String?   @default("")
   dueDateTime DateTime? @map("due_date_time")
   isArchived  Boolean   @default(false) @map("is_archived")
+  index       Int       @default(0)
 
   list   List   @relation(fields: [listId], references: [id])
   listId String @map("list_id")

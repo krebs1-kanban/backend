@@ -45,6 +45,9 @@ export class ListDto implements list {
   @ApiProperty({ example: false })
   isArchived: boolean;
 
+  @ApiProperty()
+  index: number;
+
   @Exclude()
   createdAt: Date;
 

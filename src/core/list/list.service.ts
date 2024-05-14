@@ -7,7 +7,14 @@ export class ListService {
   constructor(private readonly client: PrismaService) {}
 
   async create(data: CreateListDto) {
-    const result = await this.client.list.create({ data: data });
+    const board = await this.client.board.findUnique({
+      where: { id: data.boardId },
+      include: { lists: true },
+    });
+
+    const index = board.lists.length;
+
+    const result = await this.client.list.create({ data: { ...data, index } });
     return result;
   }
 

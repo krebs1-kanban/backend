@@ -1,7 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { FileService } from '../file/file.service';
-import { AddRemoveTagDto, CreateCardDto, UpdateCardDto } from './dto';
+import {
+  AddRemoveTagDto,
+  CreateCardDto,
+  DetachFileDto,
+  UpdateCardDto,
+} from './dto';
 
 @Injectable()
 export class CardService {
@@ -11,7 +16,15 @@ export class CardService {
   ) {}
 
   async create(data: CreateCardDto) {
-    const result = await this.client.card.create({ data: data });
+    const list = await this.client.list.findUnique({
+      where: { id: data.listId },
+      include: {
+        cards: true,
+      },
+    });
+    const index = list.cards.length;
+
+    const result = await this.client.card.create({ data: { ...data, index } });
     return result;
   }
 
@@ -19,8 +32,16 @@ export class CardService {
     const result = await this.client.card.findUnique({
       where: { id: id },
       include: {
-        tags: true,
-        files: true,
+        tags: {
+          orderBy: {
+            createdAt: 'desc',
+          },
+        },
+        files: {
+          orderBy: {
+            createdAt: 'desc',
+          },
+        },
       },
     });
     return result;
@@ -70,19 +91,38 @@ export class CardService {
 
     const names = createdFiles.map((file) => file.name);
 
-    names.forEach(async (name) => {
-      await this.client.card.update({
-        where: {
-          id: id,
-        },
-        data: {
-          files: {
-            connect: {
-              name: name,
+    await Promise.all(
+      names.map(async (name) => {
+        await this.client.card.update({
+          where: {
+            id: id,
+          },
+          data: {
+            files: {
+              connect: {
+                name: name,
+              },
             },
           },
+        });
+      }),
+    );
+
+    return await this.findById(id);
+  }
+
+  async detachFile(id: string, body: DetachFileDto) {
+    await this.client.card.update({
+      where: {
+        id: id,
+      },
+      data: {
+        files: {
+          disconnect: {
+            name: body.filename,
+          },
         },
-      });
+      },
     });
 
     return await this.findById(id);

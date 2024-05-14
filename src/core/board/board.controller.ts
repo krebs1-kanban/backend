@@ -8,6 +8,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -18,6 +19,8 @@ import {
   BoardDto,
   BoardWithDetailsDto,
   CreateBoardDto,
+  MoveCardDto,
+  MoveListDto,
   UpdateBoardDto,
 } from './dto';
 
@@ -47,8 +50,28 @@ export class BoardController {
   @Get(':id')
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse({ type: BoardWithDetailsDto })
-  async getById(@Param('id') id: string) {
-    return new BoardWithDetailsDto(await this.boardService.findById(id));
+  async getById(
+    @Param('id') id: string,
+    @Query('showArchived') showArchived: boolean = false,
+  ) {
+    return new BoardWithDetailsDto(
+      await this.boardService.findById(id, { showArchived }),
+    );
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Patch('move-list')
+  @HttpCode(HttpStatus.OK)
+  async moveList(@Body() body: MoveListDto) {
+    await this.boardService.moveList(body);
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Patch('move-card')
+  @HttpCode(HttpStatus.OK)
+  async moveCard(@Body() body: MoveCardDto) {
+    console.log(body);
+    await this.boardService.moveCard(body);
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

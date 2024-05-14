@@ -9,7 +9,7 @@ export class CreateTagDto {
   @IsString({ message: 'Имя должно быть строкой' })
   name: string;
 
-  @ApiProperty({ example: '#FFFFFF' })
+  @ApiProperty({ example: '#FFFFFF', nullable: true, required: false })
   @IsOptional()
   @IsString({ message: 'Код цвета должен быть строкой' })
   color: string;

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { $Enums, Project } from 'prisma/generated/client';
 import { BoardDto } from 'src/core/board/dto';
 import { ProjectMemberWithDetailsDto } from 'src/core/project-member/dto';
@@ -13,10 +13,14 @@ export class CreateProjectDto {
 }
 
 export class UpdateProjectDto {
-  @ApiProperty({ example: 'New project name' })
-  @IsNotEmpty({ message: 'Поле "name" не должно быть пустым' })
+  @ApiProperty({ example: 'New project name', nullable: true, required: false })
   @IsString({ message: 'Имя должно быть строкой' })
+  @IsOptional()
   name: string;
+
+  @ApiProperty({ enum: $Enums.ProjectRole, nullable: true, required: false })
+  @IsOptional()
+  defaultRole: $Enums.ProjectRole;
 }
 
 export class ProjectDto implements Project {

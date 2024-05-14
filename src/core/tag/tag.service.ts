@@ -11,10 +11,28 @@ export class TagService {
     return result;
   }
 
+  async findByBoardId(id: string) {
+    const result = await this.client.board.findUnique({
+      where: { id: id },
+      include: { tags: true },
+    });
+
+    return result.tags;
+  }
+
   async update(id: string, data: UpdateTagDto) {
     const result = await this.client.tag.update({
       where: { id: id },
       data: data,
+    });
+    return result;
+  }
+
+  async delete(id: string) {
+    const result = await this.client.tag.delete({
+      where: {
+        id: id,
+      },
     });
     return result;
   }

@@ -1,6 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
-import { IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { Board, Prisma } from 'prisma/generated/client';
 import { ListDto } from 'src/core/list/dto';
 import { TagDto } from 'src/core/tag/dto';
@@ -18,10 +24,64 @@ export class CreateBoardDto {
 }
 
 export class UpdateBoardDto {
-  @ApiProperty({ example: 'New board name' })
-  @IsNotEmpty({ message: 'Поле "name" не должно быть пустым' })
-  @IsString({ message: 'Имя должно быть строкой' })
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
   name: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsBoolean()
+  isArchived: boolean;
+}
+
+export class MoveListDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  listId: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  boardId: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsNumber()
+  fromIndex: number;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsNumber()
+  toIndex: number;
+}
+
+export class MoveCardDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  cardId: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  fromListId: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  toListId: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsNumber()
+  fromIndex: number;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsNumber()
+  toIndex: number;
 }
 
 export class BoardDto implements Board {
@@ -56,6 +116,7 @@ type boardWithDetails = Prisma.BoardGetPayload<{
         cards: {
           include: {
             tags: true;
+            files: true;
           };
         };
       };

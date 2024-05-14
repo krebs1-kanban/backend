@@ -2,6 +2,8 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  Delete,
+  Get,
   HttpCode,
   HttpStatus,
   Param,
@@ -30,10 +32,27 @@ export class TagController {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
+  @Get('by-board/:id')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse({ type: [TagDto] })
+  async getByBoardId(@Param('id') id: string) {
+    return (await this.tagService.findByBoardId(id)).map(
+      (tag) => new TagDto(tag),
+    );
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
   @Patch(':id')
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse({ type: TagDto })
   async update(@Param('id') id: string, @Body() body: UpdateTagDto) {
     return new TagDto(await this.tagService.update(id, body));
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async delete(@Param('id') id: string) {
+    await this.tagService.delete(id);
   }
 }

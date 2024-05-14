@@ -40,8 +40,8 @@ export class CreateCardDto {
 }
 
 export class UpdateCardDto {
-  @ApiProperty({ example: 'List 1' })
-  @IsNotEmpty({ message: 'Поле "name" не должно быть пустым' })
+  @ApiProperty({ example: 'Card 1', nullable: true, required: false })
+  @IsOptional()
   @IsString({ message: 'Имя должно быть строкой' })
   name: string;
 
@@ -64,8 +64,8 @@ export class UpdateCardDto {
 }
 
 export class AttachFilesDto {
-  @ApiProperty({ type: 'string', format: 'binary' })
-  files: any;
+  @ApiProperty({ type: Array, format: 'binary' })
+  files: string[];
 }
 
 export class AddRemoveTagDto {
@@ -73,6 +73,13 @@ export class AddRemoveTagDto {
   @IsNotEmpty({ message: 'Поле "tagId" не должно быть пустым' })
   @IsString({ message: 'id должно быть строкой' })
   tagId: string;
+}
+
+export class DetachFileDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  filename: string;
 }
 
 type card = Prisma.CardGetPayload<{
@@ -100,6 +107,9 @@ export class CardDto implements card {
   @ApiProperty({ example: false })
   isArchived: boolean;
 
+  @ApiProperty()
+  index: number;
+
   @Exclude()
   createdAt: Date;
 
@@ -118,7 +128,7 @@ export class CardDto implements card {
     if (tags) {
       this.tags = tags.map((val) => new TagDto(val));
     }
-    if (this.files) {
+    if (files) {
       this.files = files.map((val) => new FileDto(val));
     }
   }
