@@ -1,0 +1,160 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  email    String @unique
+  password String
+  salt     String
+
+  account Account?
+
+  MembersOnProjects MembersOnProjects[]
+
+  @@map("user")
+}
+
+model Account {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name      String?
+  avatarImg String?
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique @map("user_id")
+
+  @@map("account")
+}
+
+model MembersOnProjects {
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user      User        @relation(fields: [userId], references: [id])
+  userId    String      @map("user_id")
+  project   Project     @relation(fields: [projectId], references: [id])
+  projectId String      @map("project_id")
+  role      ProjectRole @default(OBSERVER)
+
+  @@id([userId, projectId])
+  @@map("members_on_projects")
+}
+
+model Project {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name        String
+  isArchived  Boolean     @default(false)
+  inviteLink  String?     @map("invite_link")
+  defaultRole ProjectRole @default(OBSERVER) @map("default_role")
+
+  MembersOnProjects MembersOnProjects[]
+  boards            Board[]
+
+  @@map("project")
+}
+
+model Board {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name       String
+  isArchived Boolean @default(false)
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String  @map("project_id")
+
+  tags  Tag[]
+  lists List[]
+
+  @@map("board")
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name  String?
+  color String?
+
+  board   Board  @relation(fields: [boardId], references: [id])
+  boardId String @map("board_id")
+
+  cards Card[] @relation()
+
+  @@map("tag")
+}
+
+model List {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name       String
+  isArchived Boolean @default(false) @map("is_archived")
+  index      Int     @default(0)
+
+  board   Board  @relation(fields: [boardId], references: [id])
+  boardId String @map("board_id")
+
+  cards Card[]
+
+  @@map("list")
+}
+
+model Card {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name        String
+  description String?   @default("")
+  dueDateTime DateTime? @map("due_date_time")
+  isArchived  Boolean   @default(false) @map("is_archived")
+  index       Int       @default(0)
+
+  list   List   @relation(fields: [listId], references: [id])
+  listId String @map("list_id")
+
+  tags Tag[] @relation()
+
+  files File[]
+
+  @@map("card")
+}
+
+model File {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  displayName String? @map("display_name")
+  name        String  @unique
+  path        String
+  extension   String
+  size        Int
+
+  cards Card[]
+}
+
+enum ProjectRole {
+  OBSERVER
+  MEMBER
+  ADMIN
+}
