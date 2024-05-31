@@ -14,7 +14,7 @@ export const configLoader = (): ConfigLoader => ({
   sever: {
     host: process.env.HOST,
     port: parseInt(process.env.PORT),
-    clientUrl: ProcessingInstruction.env.CLIENT_URL,
+    clientUrl: process.env.CLIENT_URL,
   },
   jwt: {
     jwtSecret: process.env.JWT_SECRET,
