@@ -6,4 +6,6 @@ export const configSchema = Joi.object({
 
   JWT_SECRET: Joi.string().required(),
   JWT_ACCESS_EXPIRES: Joi.number().required(),
+
+  CLIENT_URL: Joi.string().required()
 });

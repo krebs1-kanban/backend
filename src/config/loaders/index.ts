@@ -2,6 +2,7 @@ type ConfigLoader = {
   sever: {
     host: string;
     port: number;
+    clientUrl: string;
   };
   jwt: {
     jwtSecret: string;
@@ -13,6 +14,7 @@ export const configLoader = (): ConfigLoader => ({
   sever: {
     host: process.env.HOST,
     port: parseInt(process.env.PORT),
+    clientUrl: ProcessingInstruction.env.CLIENT_URL,
   },
   jwt: {
     jwtSecret: process.env.JWT_SECRET,

@@ -1,17 +1,19 @@
-import { Logger, ValidationPipe } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as cookieParser from 'cookie-parser';
-import { AppModule } from './app.module';
+import { Logger, ValidationPipe } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
+import { NestFactory } from '@nestjs/core'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import * as cookieParser from 'cookie-parser'
+import { AppModule } from './app.module'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix('api');
   app.use(cookieParser());
+
+  const {clientUrl} = app.get(ConfigService).get('server');
   app.enableCors({
-    origin: ['http://localhost:3000'],
+    origin: ['http://localhost:3000', clientUrl],
     credentials: true,
     exposedHeaders: 'set-cookie',
   });
