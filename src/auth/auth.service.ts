@@ -112,7 +112,7 @@ export class AuthService {
     });
     await this.client.passwordReset.delete({ where: { id: dto.code } });
 
-    //SEND EMAIL
+    this.mailService.SendResetPasswordSuccess(newUser.email);
 
     return newUser;
   }

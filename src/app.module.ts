@@ -34,7 +34,6 @@ import { ConfigLoaderType } from './config/loaders';
             host: mailerHost,
             port: mailerPort,
             requireTLS: true,
-            secure: false,
             auth: {
               user: mailerUsername,
               pass: mailerPassword,

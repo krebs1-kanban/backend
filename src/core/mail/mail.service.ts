@@ -28,10 +28,12 @@ export class MailService {
   public SendResetPasswordSuccess(to: string) {
     const frontendUrl = this.configService.get('server').frontendUrl as string;
 
+    console.log(to, frontendUrl);
+
     this.mailerService
       .sendMail({
         to: to,
-        subject: `Пароль успешно изменен на ${this.configService.get('server').frontendUrl as string}`,
+        subject: `Пароль успешно изменен на ${frontendUrl}`,
         template: 'ResetPasswordSuccess.template.hbs',
         context: {
           on: frontendUrl,
