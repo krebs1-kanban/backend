@@ -7,6 +7,7 @@ import { join } from 'path';
 import { CoreModule } from 'src/core/core.module';
 import { DatabaseModule } from 'src/database/database.module';
 import { AuthModule } from './auth/auth.module';
+import { ConfigLoaderType } from './config/loaders';
 
 @Module({
   imports: [
@@ -18,30 +19,42 @@ import { AuthModule } from './auth/auth.module';
     }),
     MailerModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        transport: {
-          host: configService.get('mailer').mailerHost as string,
-          port: configService.get('mailer').mailerPort as number,
-          requireTLS: true,
-          secure: false,
-          auth: {
-            user: configService.get('mailer').mailerUsername as string,
-            pass: configService.get('mailer').mailerPassword as string,
+      useFactory: async (configService: ConfigService) => {
+        const {
+          mailerHost,
+          mailerPort,
+          mailerUsername,
+          mailerPassword,
+          mailerFrom,
+        } = configService.get<ConfigLoaderType['mailer']>('mailer');
+        console.log(configService.get<ConfigLoaderType['mailer']>('mailer'));
+
+        return {
+          transport: {
+            host: mailerHost,
+            port: mailerPort,
+            requireTLS: true,
+            secure: false,
+            auth: {
+              user: mailerUsername,
+              pass: mailerPassword,
+            },
           },
-        },
-        defaults: {
-          from: `"No Reply" <${configService.get('mailer').mailerFrom as string}>`,
-        },
-        preview: true,
-        verifyTransporters: true,
-        template: {
-          dir: process.cwd() + '/src/core/mail/template/',
-          adapter: new HandlebarsAdapter(),
-          options: {
-            strict: true,
+          defaults: {
+            from: `"No Reply" <${mailerFrom}>`,
           },
-        },
-      }),
+          //ONLY FOR DEV
+          //preview: true,
+          verifyTransporters: true,
+          template: {
+            dir: process.cwd() + '/src/core/mail/template/',
+            adapter: new HandlebarsAdapter(),
+            options: {
+              strict: true,
+            },
+          },
+        };
+      },
       inject: [ConfigService],
     }),
   ],

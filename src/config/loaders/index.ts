@@ -1,4 +1,4 @@
-type ConfigLoader = {
+export type ConfigLoaderType = {
   sever: {
     host: string;
     port: number;
@@ -17,7 +17,7 @@ type ConfigLoader = {
   };
 };
 
-export const configLoader = (): ConfigLoader => ({
+export const configLoader = (): ConfigLoaderType => ({
   sever: {
     host: process.env.HOST,
     port: parseInt(process.env.PORT),
