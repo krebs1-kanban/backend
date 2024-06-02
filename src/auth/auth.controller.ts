@@ -18,7 +18,13 @@ import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { CookieService } from './cookie.service';
 import { SessionInfo } from './decorators/SessionInfo.decorator';
-import { GetSessionInfoDto, SignInDto, SignUpDto } from './dto/';
+import {
+  GetSessionInfoDto,
+  PasswordResetConfirmDto,
+  PasswordResetRequestDto,
+  SignInDto,
+  SignUpDto,
+} from './dto/';
 import { EmailExistsError } from './errors';
 import { AuthGuard } from './guards/auth.guard';
 
@@ -79,5 +85,19 @@ export class AuthController {
   @UseGuards(AuthGuard)
   getSessionInfo(@SessionInfo() session: GetSessionInfoDto) {
     return session;
+  }
+
+  @Post('password-reset/request')
+  @ApiOkResponse()
+  @HttpCode(HttpStatus.OK)
+  async passwordResetReq(@Body() body: PasswordResetRequestDto) {
+    await this.authService.passwordResetReq(body);
+  }
+
+  @Post('password-reset/confirm')
+  @ApiOkResponse()
+  @HttpCode(HttpStatus.OK)
+  async passwordResetConfirm(@Body() body: PasswordResetConfirmDto) {
+    await this.authService.passwordResetConfirm(body);
   }
 }

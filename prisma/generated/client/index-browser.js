@@ -116,6 +116,15 @@ exports.Prisma.UserScalarFieldEnum = {
   salt: 'salt'
 };
 
+exports.Prisma.PasswordResetScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  expirationTime: 'expirationTime',
+  newPassword: 'newPassword',
+  userId: 'userId'
+};
+
 exports.Prisma.AccountScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
@@ -216,6 +225,7 @@ exports.ProjectRole = exports.$Enums.ProjectRole = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  PasswordReset: 'PasswordReset',
   Account: 'Account',
   MembersOnProjects: 'MembersOnProjects',
   Project: 'Project',

@@ -38,3 +38,22 @@ export class GetSessionInfoDto {
   @ApiProperty({ example: 1709141490 })
   exp: number;
 }
+
+export class PasswordResetRequestDto {
+  @ApiProperty()
+  @IsNotEmpty({ message: 'Поле "E-mail" не должно быть пустым' })
+  @IsEmail({}, { message: 'Поле "E-mail" должно быть E-mail' })
+  email: string;
+
+  @ApiProperty()
+  @MinLength(8, { message: 'Минимальная длина пароля 8 символов' })
+  @IsString({ message: 'Поле "Пароль" должно быть строкой' })
+  password: string;
+}
+
+export class PasswordResetConfirmDto {
+  @ApiProperty()
+  @IsNotEmpty({ message: 'Поле "Код" не должно быть пустым' })
+  @IsString({ message: 'Поле "Код" должно быть строкой' })
+  code: string;
+}

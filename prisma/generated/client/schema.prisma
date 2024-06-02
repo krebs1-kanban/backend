@@ -21,7 +21,23 @@ model User {
 
   MembersOnProjects MembersOnProjects[]
 
+  passwordReset PasswordReset[]
+  
   @@map("user")
+}
+
+model PasswordReset {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  expirationTime DateTime @map("expiration_time")
+  newPassword    String   @map("new_password")
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+
+  @@map("password_reset")
 }
 
 model Account {

@@ -4,8 +4,15 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { MailService } from 'src/core/mail/mail.service';
 import { UsersService } from 'src/core/users/users.service';
-import { SignInDto, SignUpDto } from './dto/';
+import { PrismaService } from 'src/database/prisma.service';
+import {
+  PasswordResetConfirmDto,
+  PasswordResetRequestDto,
+  SignInDto,
+  SignUpDto,
+} from './dto/';
 import { PasswordService } from './password.service';
 
 @Injectable()
@@ -14,6 +21,8 @@ export class AuthService {
     private jwt: JwtService,
     private usersService: UsersService,
     private passwordService: PasswordService,
+    private readonly client: PrismaService,
+    private readonly mailService: MailService,
   ) {}
 
   async signIn(dto: SignInDto) {
@@ -62,5 +71,49 @@ export class AuthService {
     });
 
     return { accessToken };
+  }
+
+  async passwordResetReq(dto: PasswordResetRequestDto) {
+    const checkUser = await this.usersService.getByEmail(dto.email);
+
+    if (!checkUser) return;
+
+    const passwordReset = await this.client.passwordReset.create({
+      data: {
+        userId: checkUser.id,
+        expirationTime: new Date(Date.now() + 60 * 60 * 1000),
+        newPassword: dto.password,
+      },
+    });
+
+    this.mailService.SendResetPasswordCode(checkUser.email, passwordReset.id);
+
+    return;
+  }
+
+  async passwordResetConfirm(dto: PasswordResetConfirmDto) {
+    const checkPasswordReset = await this.client.passwordReset.findUnique({
+      where: { id: dto.code },
+    });
+
+    if (!checkPasswordReset) {
+      throw new BadRequestException({ type: 'wrong-reset-code' });
+    }
+
+    const newSalt = this.passwordService.getSalt();
+    const newHashedPassword = this.passwordService.getHash(
+      checkPasswordReset.newPassword,
+      newSalt,
+    );
+
+    const newUser = await this.usersService.update(checkPasswordReset.userId, {
+      salt: newSalt as string,
+      password: newHashedPassword as string,
+    });
+    await this.client.passwordReset.delete({ where: { id: dto.code } });
+
+    //SEND EMAIL
+
+    return newUser;
   }
 }
