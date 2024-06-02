@@ -12,8 +12,6 @@ async function bootstrap() {
   const serverConfig = configService.get('server');
   const { host, port, frontendUrl } = serverConfig;
 
-  console.log(configService.get('mailer'));
-
   app.setGlobalPrefix('api');
   app.use(cookieParser());
 
