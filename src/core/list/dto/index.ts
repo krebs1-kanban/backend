@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Prisma } from 'prisma/generated/client';
 import { CardDto } from 'src/core/card/dto';
 
@@ -17,10 +17,21 @@ export class CreateListDto {
 }
 
 export class UpdateListDto {
-  @ApiProperty({ example: 'List 1' })
-  @IsNotEmpty({ message: 'Поле "name" не должно быть пустым' })
+  @ApiProperty({
+    nullable: true,
+    required: false,
+  })
+  @IsOptional()
   @IsString({ message: 'Имя должно быть строкой' })
-  name: string;
+  name?: string;
+
+  @ApiProperty({
+    nullable: true,
+    required: false,
+  })
+  @IsOptional()
+  @IsBoolean()
+  isArchived?: boolean;
 }
 
 type list = Prisma.ListGetPayload<{

@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
 import {
+  IsBoolean,
   IsDateString,
   IsNotEmpty,
   IsOptional,
@@ -43,7 +44,7 @@ export class UpdateCardDto {
   @ApiProperty({ example: 'Card 1', nullable: true, required: false })
   @IsOptional()
   @IsString({ message: 'Имя должно быть строкой' })
-  name: string;
+  name?: string;
 
   @ApiProperty({
     example: 'Card description 1',
@@ -52,7 +53,7 @@ export class UpdateCardDto {
   })
   @IsOptional()
   @IsString({ message: 'Имя должно быть строкой' })
-  description: string;
+  description?: string;
 
   @ApiProperty({
     nullable: true,
@@ -60,7 +61,15 @@ export class UpdateCardDto {
   })
   @IsOptional()
   @IsDateString()
-  dueDateTime: Date;
+  dueDateTime?: Date;
+
+  @ApiProperty({
+    nullable: true,
+    required: false,
+  })
+  @IsOptional()
+  @IsBoolean()
+  isArchived?: boolean;
 }
 
 export class AttachFilesDto {
