@@ -65,7 +65,7 @@ export class FileService {
       const size = file.size / bytesInKb;
 
       return {
-        displayName: displayName,
+        displayName: decodeURI(displayName),
         name: name,
         path: `${pathInStaticFolder}/${name}`,
         extension: extension,
