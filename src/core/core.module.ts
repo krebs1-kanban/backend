@@ -6,6 +6,7 @@ import { BoardModule } from './board/board.module';
 import { CardModule } from './card/card.module';
 import { FileModule } from './file/file.module';
 import { ListModule } from './list/list.module';
+import { MailModule } from './mail/mail.module';
 import { ProjectMemberModule } from './project-member/project-member.module';
 import { ProjectModule } from './project/project.module';
 import { TagModule } from './tag/tag.module';
@@ -21,6 +22,7 @@ import { TagModule } from './tag/tag.module';
     CardModule,
     TagModule,
     FileModule,
+    MailModule,
   ],
 })
 export class CoreModule {}
