@@ -187,6 +187,8 @@ exports.Prisma.CardScalarFieldEnum = {
   name: 'name',
   description: 'description',
   dueDateTime: 'dueDateTime',
+  cover: 'cover',
+  status: 'status',
   isArchived: 'isArchived',
   index: 'index',
   listId: 'listId'
@@ -221,6 +223,12 @@ exports.ProjectRole = exports.$Enums.ProjectRole = {
   OBSERVER: 'OBSERVER',
   MEMBER: 'MEMBER',
   ADMIN: 'ADMIN'
+};
+
+exports.CardStatus = exports.$Enums.CardStatus = {
+  INCOMPLETE: 'INCOMPLETE',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETE: 'COMPLETE'
 };
 
 exports.Prisma.ModelName = {

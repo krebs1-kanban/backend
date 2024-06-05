@@ -22,7 +22,7 @@ model User {
   MembersOnProjects MembersOnProjects[]
 
   passwordReset PasswordReset[]
-  
+
   @@map("user")
 }
 
@@ -140,10 +140,12 @@ model Card {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   name        String
-  description String?   @default("")
-  dueDateTime DateTime? @map("due_date_time")
-  isArchived  Boolean   @default(false) @map("is_archived")
-  index       Int       @default(0)
+  description String?    @default("")
+  dueDateTime DateTime?  @map("due_date_time")
+  cover       String?    @default("")
+  status      CardStatus @default(INCOMPLETE) @map("status")
+  isArchived  Boolean    @default(false) @map("is_archived")
+  index       Int        @default(0)
 
   list   List   @relation(fields: [listId], references: [id])
   listId String @map("list_id")
@@ -173,4 +175,10 @@ enum ProjectRole {
   OBSERVER
   MEMBER
   ADMIN
+}
+
+enum CardStatus {
+  INCOMPLETE
+  IN_PROGRESS
+  COMPLETE
 }

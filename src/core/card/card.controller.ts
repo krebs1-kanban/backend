@@ -96,6 +96,7 @@ export class CardController {
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse({ type: CardDto })
   async update(@Param('id') id: string, @Body() body: UpdateCardDto) {
+    console.log(body.status);
     return new CardDto(await this.cardService.update(id, body));
   }
 }

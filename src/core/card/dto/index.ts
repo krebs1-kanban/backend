@@ -3,11 +3,12 @@ import { Exclude } from 'class-transformer';
 import {
   IsBoolean,
   IsDateString,
+  IsEnum,
   IsNotEmpty,
   IsOptional,
   IsString,
 } from 'class-validator';
-import { Prisma } from 'prisma/generated/client';
+import { $Enums, Prisma } from 'prisma/generated/client';
 import { FileDto } from 'src/core/file/dto';
 import { TagDto } from 'src/core/tag/dto';
 
@@ -68,6 +69,23 @@ export class UpdateCardDto {
     required: false,
   })
   @IsOptional()
+  @IsString()
+  cover?: string;
+
+  @ApiProperty({
+    enum: $Enums.CardStatus,
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsEnum($Enums.CardStatus)
+  status: $Enums.CardStatus;
+
+  @ApiProperty({
+    nullable: true,
+    required: false,
+  })
+  @IsOptional()
   @IsBoolean()
   isArchived?: boolean;
 }
@@ -112,6 +130,12 @@ export class CardDto implements card {
 
   @ApiProperty()
   dueDateTime: Date;
+
+  @ApiProperty()
+  cover: string;
+
+  @ApiProperty({ enum: $Enums.CardStatus })
+  status: $Enums.CardStatus;
 
   @ApiProperty({ example: false })
   isArchived: boolean;

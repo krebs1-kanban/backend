@@ -76,11 +76,24 @@ export namespace $Enums {
 
 export type ProjectRole = (typeof ProjectRole)[keyof typeof ProjectRole]
 
+
+export const CardStatus: {
+  INCOMPLETE: 'INCOMPLETE',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETE: 'COMPLETE'
+};
+
+export type CardStatus = (typeof CardStatus)[keyof typeof CardStatus]
+
 }
 
 export type ProjectRole = $Enums.ProjectRole
 
 export const ProjectRole: typeof $Enums.ProjectRole
+
+export type CardStatus = $Enums.CardStatus
+
+export const CardStatus: typeof $Enums.CardStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -9627,6 +9640,8 @@ export namespace Prisma {
     name: string | null
     description: string | null
     dueDateTime: Date | null
+    cover: string | null
+    status: $Enums.CardStatus | null
     isArchived: boolean | null
     index: number | null
     listId: string | null
@@ -9639,6 +9654,8 @@ export namespace Prisma {
     name: string | null
     description: string | null
     dueDateTime: Date | null
+    cover: string | null
+    status: $Enums.CardStatus | null
     isArchived: boolean | null
     index: number | null
     listId: string | null
@@ -9651,6 +9668,8 @@ export namespace Prisma {
     name: number
     description: number
     dueDateTime: number
+    cover: number
+    status: number
     isArchived: number
     index: number
     listId: number
@@ -9673,6 +9692,8 @@ export namespace Prisma {
     name?: true
     description?: true
     dueDateTime?: true
+    cover?: true
+    status?: true
     isArchived?: true
     index?: true
     listId?: true
@@ -9685,6 +9706,8 @@ export namespace Prisma {
     name?: true
     description?: true
     dueDateTime?: true
+    cover?: true
+    status?: true
     isArchived?: true
     index?: true
     listId?: true
@@ -9697,6 +9720,8 @@ export namespace Prisma {
     name?: true
     description?: true
     dueDateTime?: true
+    cover?: true
+    status?: true
     isArchived?: true
     index?: true
     listId?: true
@@ -9796,6 +9821,8 @@ export namespace Prisma {
     name: string
     description: string | null
     dueDateTime: Date | null
+    cover: string | null
+    status: $Enums.CardStatus
     isArchived: boolean
     index: number
     listId: string
@@ -9827,6 +9854,8 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     dueDateTime?: boolean
+    cover?: boolean
+    status?: boolean
     isArchived?: boolean
     index?: boolean
     listId?: boolean
@@ -9843,6 +9872,8 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     dueDateTime?: boolean
+    cover?: boolean
+    status?: boolean
     isArchived?: boolean
     index?: boolean
     listId?: boolean
@@ -9870,6 +9901,8 @@ export namespace Prisma {
       name: string
       description: string | null
       dueDateTime: Date | null
+      cover: string | null
+      status: $Enums.CardStatus
       isArchived: boolean
       index: number
       listId: string
@@ -10278,6 +10311,8 @@ export namespace Prisma {
     readonly name: FieldRef<"Card", 'String'>
     readonly description: FieldRef<"Card", 'String'>
     readonly dueDateTime: FieldRef<"Card", 'DateTime'>
+    readonly cover: FieldRef<"Card", 'String'>
+    readonly status: FieldRef<"Card", 'CardStatus'>
     readonly isArchived: FieldRef<"Card", 'Boolean'>
     readonly index: FieldRef<"Card", 'Int'>
     readonly listId: FieldRef<"Card", 'String'>
@@ -11776,6 +11811,8 @@ export namespace Prisma {
     name: 'name',
     description: 'description',
     dueDateTime: 'dueDateTime',
+    cover: 'cover',
+    status: 'status',
     isArchived: 'isArchived',
     index: 'index',
     listId: 'listId'
@@ -11887,6 +11924,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CardStatus'
+   */
+  export type EnumCardStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CardStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'CardStatus[]'
+   */
+  export type ListEnumCardStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CardStatus[]'>
     
 
 
@@ -12429,6 +12480,8 @@ export namespace Prisma {
     name?: StringFilter<"Card"> | string
     description?: StringNullableFilter<"Card"> | string | null
     dueDateTime?: DateTimeNullableFilter<"Card"> | Date | string | null
+    cover?: StringNullableFilter<"Card"> | string | null
+    status?: EnumCardStatusFilter<"Card"> | $Enums.CardStatus
     isArchived?: BoolFilter<"Card"> | boolean
     index?: IntFilter<"Card"> | number
     listId?: StringFilter<"Card"> | string
@@ -12444,6 +12497,8 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     dueDateTime?: SortOrderInput | SortOrder
+    cover?: SortOrderInput | SortOrder
+    status?: SortOrder
     isArchived?: SortOrder
     index?: SortOrder
     listId?: SortOrder
@@ -12462,6 +12517,8 @@ export namespace Prisma {
     name?: StringFilter<"Card"> | string
     description?: StringNullableFilter<"Card"> | string | null
     dueDateTime?: DateTimeNullableFilter<"Card"> | Date | string | null
+    cover?: StringNullableFilter<"Card"> | string | null
+    status?: EnumCardStatusFilter<"Card"> | $Enums.CardStatus
     isArchived?: BoolFilter<"Card"> | boolean
     index?: IntFilter<"Card"> | number
     listId?: StringFilter<"Card"> | string
@@ -12477,6 +12534,8 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     dueDateTime?: SortOrderInput | SortOrder
+    cover?: SortOrderInput | SortOrder
+    status?: SortOrder
     isArchived?: SortOrder
     index?: SortOrder
     listId?: SortOrder
@@ -12497,6 +12556,8 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Card"> | string
     description?: StringNullableWithAggregatesFilter<"Card"> | string | null
     dueDateTime?: DateTimeNullableWithAggregatesFilter<"Card"> | Date | string | null
+    cover?: StringNullableWithAggregatesFilter<"Card"> | string | null
+    status?: EnumCardStatusWithAggregatesFilter<"Card"> | $Enums.CardStatus
     isArchived?: BoolWithAggregatesFilter<"Card"> | boolean
     index?: IntWithAggregatesFilter<"Card"> | number
     listId?: StringWithAggregatesFilter<"Card"> | string
@@ -13121,6 +13182,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     dueDateTime?: Date | string | null
+    cover?: string | null
+    status?: $Enums.CardStatus
     isArchived?: boolean
     index?: number
     list: ListCreateNestedOneWithoutCardsInput
@@ -13135,6 +13198,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     dueDateTime?: Date | string | null
+    cover?: string | null
+    status?: $Enums.CardStatus
     isArchived?: boolean
     index?: number
     listId: string
@@ -13149,6 +13214,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDateTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cover?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCardStatusFieldUpdateOperationsInput | $Enums.CardStatus
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     index?: IntFieldUpdateOperationsInput | number
     list?: ListUpdateOneRequiredWithoutCardsNestedInput
@@ -13163,6 +13230,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDateTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cover?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCardStatusFieldUpdateOperationsInput | $Enums.CardStatus
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     index?: IntFieldUpdateOperationsInput | number
     listId?: StringFieldUpdateOperationsInput | string
@@ -13177,6 +13246,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     dueDateTime?: Date | string | null
+    cover?: string | null
+    status?: $Enums.CardStatus
     isArchived?: boolean
     index?: number
     listId: string
@@ -13189,6 +13260,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDateTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cover?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCardStatusFieldUpdateOperationsInput | $Enums.CardStatus
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     index?: IntFieldUpdateOperationsInput | number
   }
@@ -13200,6 +13273,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDateTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cover?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCardStatusFieldUpdateOperationsInput | $Enums.CardStatus
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     index?: IntFieldUpdateOperationsInput | number
     listId?: StringFieldUpdateOperationsInput | string
@@ -13762,6 +13837,13 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type EnumCardStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CardStatus | EnumCardStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CardStatus[] | ListEnumCardStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CardStatus[] | ListEnumCardStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCardStatusFilter<$PrismaModel> | $Enums.CardStatus
+  }
+
   export type ListRelationFilter = {
     is?: ListWhereInput
     isNot?: ListWhereInput
@@ -13784,6 +13866,8 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     dueDateTime?: SortOrder
+    cover?: SortOrder
+    status?: SortOrder
     isArchived?: SortOrder
     index?: SortOrder
     listId?: SortOrder
@@ -13800,6 +13884,8 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     dueDateTime?: SortOrder
+    cover?: SortOrder
+    status?: SortOrder
     isArchived?: SortOrder
     index?: SortOrder
     listId?: SortOrder
@@ -13812,6 +13898,8 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     dueDateTime?: SortOrder
+    cover?: SortOrder
+    status?: SortOrder
     isArchived?: SortOrder
     index?: SortOrder
     listId?: SortOrder
@@ -13833,6 +13921,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumCardStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CardStatus | EnumCardStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CardStatus[] | ListEnumCardStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CardStatus[] | ListEnumCardStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCardStatusWithAggregatesFilter<$PrismaModel> | $Enums.CardStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCardStatusFilter<$PrismaModel>
+    _max?: NestedEnumCardStatusFilter<$PrismaModel>
   }
 
   export type FileCountOrderByAggregateInput = {
@@ -14400,6 +14498,10 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
+  export type EnumCardStatusFieldUpdateOperationsInput = {
+    set?: $Enums.CardStatus
+  }
+
   export type ListUpdateOneRequiredWithoutCardsNestedInput = {
     create?: XOR<ListCreateWithoutCardsInput, ListUncheckedCreateWithoutCardsInput>
     connectOrCreate?: ListCreateOrConnectWithoutCardsInput
@@ -14675,6 +14777,13 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type NestedEnumCardStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CardStatus | EnumCardStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CardStatus[] | ListEnumCardStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CardStatus[] | ListEnumCardStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCardStatusFilter<$PrismaModel> | $Enums.CardStatus
+  }
+
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -14687,6 +14796,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCardStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CardStatus | EnumCardStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CardStatus[] | ListEnumCardStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CardStatus[] | ListEnumCardStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCardStatusWithAggregatesFilter<$PrismaModel> | $Enums.CardStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCardStatusFilter<$PrismaModel>
+    _max?: NestedEnumCardStatusFilter<$PrismaModel>
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -15387,6 +15506,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     dueDateTime?: Date | string | null
+    cover?: string | null
+    status?: $Enums.CardStatus
     isArchived?: boolean
     index?: number
     list: ListCreateNestedOneWithoutCardsInput
@@ -15400,6 +15521,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     dueDateTime?: Date | string | null
+    cover?: string | null
+    status?: $Enums.CardStatus
     isArchived?: boolean
     index?: number
     listId: string
@@ -15468,6 +15591,8 @@ export namespace Prisma {
     name?: StringFilter<"Card"> | string
     description?: StringNullableFilter<"Card"> | string | null
     dueDateTime?: DateTimeNullableFilter<"Card"> | Date | string | null
+    cover?: StringNullableFilter<"Card"> | string | null
+    status?: EnumCardStatusFilter<"Card"> | $Enums.CardStatus
     isArchived?: BoolFilter<"Card"> | boolean
     index?: IntFilter<"Card"> | number
     listId?: StringFilter<"Card"> | string
@@ -15505,6 +15630,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     dueDateTime?: Date | string | null
+    cover?: string | null
+    status?: $Enums.CardStatus
     isArchived?: boolean
     index?: number
     tags?: TagCreateNestedManyWithoutCardsInput
@@ -15518,6 +15645,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     dueDateTime?: Date | string | null
+    cover?: string | null
+    status?: $Enums.CardStatus
     isArchived?: boolean
     index?: number
     tags?: TagUncheckedCreateNestedManyWithoutCardsInput
@@ -15740,6 +15869,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     dueDateTime?: Date | string | null
+    cover?: string | null
+    status?: $Enums.CardStatus
     isArchived?: boolean
     index?: number
     list: ListCreateNestedOneWithoutCardsInput
@@ -15753,6 +15884,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     dueDateTime?: Date | string | null
+    cover?: string | null
+    status?: $Enums.CardStatus
     isArchived?: boolean
     index?: number
     listId: string
@@ -15983,6 +16116,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDateTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cover?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCardStatusFieldUpdateOperationsInput | $Enums.CardStatus
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     index?: IntFieldUpdateOperationsInput | number
     list?: ListUpdateOneRequiredWithoutCardsNestedInput
@@ -15996,6 +16131,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDateTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cover?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCardStatusFieldUpdateOperationsInput | $Enums.CardStatus
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     index?: IntFieldUpdateOperationsInput | number
     listId?: StringFieldUpdateOperationsInput | string
@@ -16009,6 +16146,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDateTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cover?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCardStatusFieldUpdateOperationsInput | $Enums.CardStatus
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     index?: IntFieldUpdateOperationsInput | number
     listId?: StringFieldUpdateOperationsInput | string
@@ -16021,6 +16160,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     dueDateTime?: Date | string | null
+    cover?: string | null
+    status?: $Enums.CardStatus
     isArchived?: boolean
     index?: number
   }
@@ -16032,6 +16173,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDateTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cover?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCardStatusFieldUpdateOperationsInput | $Enums.CardStatus
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     index?: IntFieldUpdateOperationsInput | number
     tags?: TagUpdateManyWithoutCardsNestedInput
@@ -16045,6 +16188,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDateTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cover?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCardStatusFieldUpdateOperationsInput | $Enums.CardStatus
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     index?: IntFieldUpdateOperationsInput | number
     tags?: TagUncheckedUpdateManyWithoutCardsNestedInput
@@ -16058,6 +16203,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDateTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cover?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCardStatusFieldUpdateOperationsInput | $Enums.CardStatus
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     index?: IntFieldUpdateOperationsInput | number
   }
@@ -16129,6 +16276,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDateTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cover?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCardStatusFieldUpdateOperationsInput | $Enums.CardStatus
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     index?: IntFieldUpdateOperationsInput | number
     list?: ListUpdateOneRequiredWithoutCardsNestedInput
@@ -16142,6 +16291,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDateTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cover?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCardStatusFieldUpdateOperationsInput | $Enums.CardStatus
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     index?: IntFieldUpdateOperationsInput | number
     listId?: StringFieldUpdateOperationsInput | string
@@ -16155,6 +16306,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDateTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cover?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCardStatusFieldUpdateOperationsInput | $Enums.CardStatus
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     index?: IntFieldUpdateOperationsInput | number
     listId?: StringFieldUpdateOperationsInput | string
