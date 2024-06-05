@@ -128,6 +128,12 @@ export class ProjectService {
 
     if (!project) throw new BadRequestException({ type: 'project-not-exists' });
 
+    const checkMember = await this.client.membersOnProjects.findFirst({
+      where: { userId: userId, projectId: project.id },
+    });
+
+    if (checkMember) return new ProjectMemberDto({ ...checkMember });
+
     const member = await this.projectMemberService.create({
       userId: userId,
       projectId: project.id,
