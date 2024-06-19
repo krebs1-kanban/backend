@@ -16,6 +16,7 @@ import { ConfigLoaderType } from './config/loaders';
     AuthModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'static'),
+      serveRoot: '/static-files/',
     }),
     MailerModule.forRootAsync({
       imports: [ConfigModule],
