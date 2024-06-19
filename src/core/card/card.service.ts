@@ -3,10 +3,12 @@ import { PrismaService } from 'src/database/prisma.service';
 import { FileService } from '../file/file.service';
 import {
   AddRemoveTagDto,
+  CardDto,
   CreateCardDto,
   DetachFileDto,
   UpdateCardDto,
 } from './dto';
+import { SetExecutorDto } from './dto/set-executor.dto';
 
 @Injectable()
 export class CardService {
@@ -28,7 +30,26 @@ export class CardService {
     return result;
   }
 
-  async findById(id: string) {
+  async setExecutor(data: SetExecutorDto) {
+    await this.client.card.update({
+      where: { id: data.cardId },
+      data: {
+        users: data.execute
+          ? {
+              connect: {
+                id: data.userId,
+              },
+            }
+          : {
+              disconnect: {
+                id: data.userId,
+              },
+            },
+      },
+    });
+  }
+
+  async findById(id: string): Promise<CardDto> {
     const result = await this.client.card.findUnique({
       where: { id: id },
       include: {
@@ -42,9 +63,17 @@ export class CardService {
             createdAt: 'desc',
           },
         },
+        users: {
+          select: {
+            id: true,
+          },
+          orderBy: {
+            id: 'asc',
+          },
+        },
       },
     });
-    return result;
+    return { ...result, user_ids: result.users.map((user) => user.id) };
   }
 
   async update(id: string, data: UpdateCardDto) {

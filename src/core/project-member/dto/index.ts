@@ -42,3 +42,12 @@ export class ProjectMemberWithDetailsDto {
     this.role = data.role;
   }
 }
+
+export class ProjectMemberRoleDto {
+  @ApiProperty({ example: $Enums.ProjectRole.ADMIN, enum: $Enums.ProjectRole })
+  role: $Enums.ProjectRole;
+
+  constructor(data: ProjectMemberRoleDto) {
+    this.role = data.role;
+  }
+}

@@ -1627,11 +1627,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     MembersOnProjects: number
     passwordReset: number
+    cards: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     MembersOnProjects?: boolean | UserCountOutputTypeCountMembersOnProjectsArgs
     passwordReset?: boolean | UserCountOutputTypeCountPasswordResetArgs
+    cards?: boolean | UserCountOutputTypeCountCardsArgs
   }
 
   // Custom InputTypes
@@ -1660,6 +1662,14 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountPasswordResetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PasswordResetWhereInput
+  }
+
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CardWhereInput
   }
 
 
@@ -1827,11 +1837,13 @@ export namespace Prisma {
   export type CardCountOutputType = {
     tags: number
     files: number
+    users: number
   }
 
   export type CardCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tags?: boolean | CardCountOutputTypeCountTagsArgs
     files?: boolean | CardCountOutputTypeCountFilesArgs
+    users?: boolean | CardCountOutputTypeCountUsersArgs
   }
 
   // Custom InputTypes
@@ -1860,6 +1872,14 @@ export namespace Prisma {
    */
   export type CardCountOutputTypeCountFilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FileWhereInput
+  }
+
+
+  /**
+   * CardCountOutputType without action
+   */
+  export type CardCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
   }
 
 
@@ -2077,6 +2097,7 @@ export namespace Prisma {
     account?: boolean | User$accountArgs<ExtArgs>
     MembersOnProjects?: boolean | User$MembersOnProjectsArgs<ExtArgs>
     passwordReset?: boolean | User$passwordResetArgs<ExtArgs>
+    cards?: boolean | User$cardsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2093,6 +2114,7 @@ export namespace Prisma {
     account?: boolean | User$accountArgs<ExtArgs>
     MembersOnProjects?: boolean | User$MembersOnProjectsArgs<ExtArgs>
     passwordReset?: boolean | User$passwordResetArgs<ExtArgs>
+    cards?: boolean | User$cardsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -2103,6 +2125,7 @@ export namespace Prisma {
       account: Prisma.$AccountPayload<ExtArgs> | null
       MembersOnProjects: Prisma.$MembersOnProjectsPayload<ExtArgs>[]
       passwordReset: Prisma.$PasswordResetPayload<ExtArgs>[]
+      cards: Prisma.$CardPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2481,6 +2504,8 @@ export namespace Prisma {
     MembersOnProjects<T extends User$MembersOnProjectsArgs<ExtArgs> = {}>(args?: Subset<T, User$MembersOnProjectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembersOnProjectsPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     passwordReset<T extends User$passwordResetArgs<ExtArgs> = {}>(args?: Subset<T, User$passwordResetArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    cards<T extends User$cardsArgs<ExtArgs> = {}>(args?: Subset<T, User$cardsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CardPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2882,6 +2907,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PasswordResetScalarFieldEnum | PasswordResetScalarFieldEnum[]
+  }
+
+
+  /**
+   * User.cards
+   */
+  export type User$cardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Card
+     */
+    select?: CardSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CardInclude<ExtArgs> | null
+    where?: CardWhereInput
+    orderBy?: CardOrderByWithRelationInput | CardOrderByWithRelationInput[]
+    cursor?: CardWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CardScalarFieldEnum | CardScalarFieldEnum[]
   }
 
 
@@ -9862,6 +9908,7 @@ export namespace Prisma {
     list?: boolean | ListDefaultArgs<ExtArgs>
     tags?: boolean | Card$tagsArgs<ExtArgs>
     files?: boolean | Card$filesArgs<ExtArgs>
+    users?: boolean | Card$usersArgs<ExtArgs>
     _count?: boolean | CardCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["card"]>
 
@@ -9883,6 +9930,7 @@ export namespace Prisma {
     list?: boolean | ListDefaultArgs<ExtArgs>
     tags?: boolean | Card$tagsArgs<ExtArgs>
     files?: boolean | Card$filesArgs<ExtArgs>
+    users?: boolean | Card$usersArgs<ExtArgs>
     _count?: boolean | CardCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -9893,6 +9941,7 @@ export namespace Prisma {
       list: Prisma.$ListPayload<ExtArgs>
       tags: Prisma.$TagPayload<ExtArgs>[]
       files: Prisma.$FilePayload<ExtArgs>[]
+      users: Prisma.$UserPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10276,6 +10325,8 @@ export namespace Prisma {
     tags<T extends Card$tagsArgs<ExtArgs> = {}>(args?: Subset<T, Card$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     files<T extends Card$filesArgs<ExtArgs> = {}>(args?: Subset<T, Card$filesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    users<T extends Card$usersArgs<ExtArgs> = {}>(args?: Subset<T, Card$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -10666,6 +10717,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FileScalarFieldEnum | FileScalarFieldEnum[]
+  }
+
+
+  /**
+   * Card.users
+   */
+  export type Card$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
 
@@ -11971,6 +12043,7 @@ export namespace Prisma {
     account?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     MembersOnProjects?: MembersOnProjectsListRelationFilter
     passwordReset?: PasswordResetListRelationFilter
+    cards?: CardListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -11983,6 +12056,7 @@ export namespace Prisma {
     account?: AccountOrderByWithRelationInput
     MembersOnProjects?: MembersOnProjectsOrderByRelationAggregateInput
     passwordReset?: PasswordResetOrderByRelationAggregateInput
+    cards?: CardOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -11998,6 +12072,7 @@ export namespace Prisma {
     account?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     MembersOnProjects?: MembersOnProjectsListRelationFilter
     passwordReset?: PasswordResetListRelationFilter
+    cards?: CardListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -12488,6 +12563,7 @@ export namespace Prisma {
     list?: XOR<ListRelationFilter, ListWhereInput>
     tags?: TagListRelationFilter
     files?: FileListRelationFilter
+    users?: UserListRelationFilter
   }
 
   export type CardOrderByWithRelationInput = {
@@ -12505,6 +12581,7 @@ export namespace Prisma {
     list?: ListOrderByWithRelationInput
     tags?: TagOrderByRelationAggregateInput
     files?: FileOrderByRelationAggregateInput
+    users?: UserOrderByRelationAggregateInput
   }
 
   export type CardWhereUniqueInput = Prisma.AtLeast<{
@@ -12525,6 +12602,7 @@ export namespace Prisma {
     list?: XOR<ListRelationFilter, ListWhereInput>
     tags?: TagListRelationFilter
     files?: FileListRelationFilter
+    users?: UserListRelationFilter
   }, "id">
 
   export type CardOrderByWithAggregationInput = {
@@ -12645,6 +12723,7 @@ export namespace Prisma {
     account?: AccountCreateNestedOneWithoutUserInput
     MembersOnProjects?: MembersOnProjectsCreateNestedManyWithoutUserInput
     passwordReset?: PasswordResetCreateNestedManyWithoutUserInput
+    cards?: CardCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -12657,6 +12736,7 @@ export namespace Prisma {
     account?: AccountUncheckedCreateNestedOneWithoutUserInput
     MembersOnProjects?: MembersOnProjectsUncheckedCreateNestedManyWithoutUserInput
     passwordReset?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
+    cards?: CardUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserUpdateInput = {
@@ -12669,6 +12749,7 @@ export namespace Prisma {
     account?: AccountUpdateOneWithoutUserNestedInput
     MembersOnProjects?: MembersOnProjectsUpdateManyWithoutUserNestedInput
     passwordReset?: PasswordResetUpdateManyWithoutUserNestedInput
+    cards?: CardUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -12681,6 +12762,7 @@ export namespace Prisma {
     account?: AccountUncheckedUpdateOneWithoutUserNestedInput
     MembersOnProjects?: MembersOnProjectsUncheckedUpdateManyWithoutUserNestedInput
     passwordReset?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+    cards?: CardUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -13189,6 +13271,7 @@ export namespace Prisma {
     list: ListCreateNestedOneWithoutCardsInput
     tags?: TagCreateNestedManyWithoutCardsInput
     files?: FileCreateNestedManyWithoutCardsInput
+    users?: UserCreateNestedManyWithoutCardsInput
   }
 
   export type CardUncheckedCreateInput = {
@@ -13205,6 +13288,7 @@ export namespace Prisma {
     listId: string
     tags?: TagUncheckedCreateNestedManyWithoutCardsInput
     files?: FileUncheckedCreateNestedManyWithoutCardsInput
+    users?: UserUncheckedCreateNestedManyWithoutCardsInput
   }
 
   export type CardUpdateInput = {
@@ -13221,6 +13305,7 @@ export namespace Prisma {
     list?: ListUpdateOneRequiredWithoutCardsNestedInput
     tags?: TagUpdateManyWithoutCardsNestedInput
     files?: FileUpdateManyWithoutCardsNestedInput
+    users?: UserUpdateManyWithoutCardsNestedInput
   }
 
   export type CardUncheckedUpdateInput = {
@@ -13237,6 +13322,7 @@ export namespace Prisma {
     listId?: StringFieldUpdateOperationsInput | string
     tags?: TagUncheckedUpdateManyWithoutCardsNestedInput
     files?: FileUncheckedUpdateManyWithoutCardsNestedInput
+    users?: UserUncheckedUpdateManyWithoutCardsNestedInput
   }
 
   export type CardCreateManyInput = {
@@ -13404,11 +13490,21 @@ export namespace Prisma {
     none?: PasswordResetWhereInput
   }
 
+  export type CardListRelationFilter = {
+    every?: CardWhereInput
+    some?: CardWhereInput
+    none?: CardWhereInput
+  }
+
   export type MembersOnProjectsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type PasswordResetOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CardOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -13724,16 +13820,6 @@ export namespace Prisma {
     isNot?: BoardWhereInput
   }
 
-  export type CardListRelationFilter = {
-    every?: CardWhereInput
-    some?: CardWhereInput
-    none?: CardWhereInput
-  }
-
-  export type CardOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type TagCountOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
@@ -13855,7 +13941,17 @@ export namespace Prisma {
     none?: FileWhereInput
   }
 
+  export type UserListRelationFilter = {
+    every?: UserWhereInput
+    some?: UserWhereInput
+    none?: UserWhereInput
+  }
+
   export type FileOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -13994,6 +14090,12 @@ export namespace Prisma {
     connect?: PasswordResetWhereUniqueInput | PasswordResetWhereUniqueInput[]
   }
 
+  export type CardCreateNestedManyWithoutUsersInput = {
+    create?: XOR<CardCreateWithoutUsersInput, CardUncheckedCreateWithoutUsersInput> | CardCreateWithoutUsersInput[] | CardUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: CardCreateOrConnectWithoutUsersInput | CardCreateOrConnectWithoutUsersInput[]
+    connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput>
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput
@@ -14012,6 +14114,12 @@ export namespace Prisma {
     connectOrCreate?: PasswordResetCreateOrConnectWithoutUserInput | PasswordResetCreateOrConnectWithoutUserInput[]
     createMany?: PasswordResetCreateManyUserInputEnvelope
     connect?: PasswordResetWhereUniqueInput | PasswordResetWhereUniqueInput[]
+  }
+
+  export type CardUncheckedCreateNestedManyWithoutUsersInput = {
+    create?: XOR<CardCreateWithoutUsersInput, CardUncheckedCreateWithoutUsersInput> | CardCreateWithoutUsersInput[] | CardUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: CardCreateOrConnectWithoutUsersInput | CardCreateOrConnectWithoutUsersInput[]
+    connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -14060,6 +14168,19 @@ export namespace Prisma {
     deleteMany?: PasswordResetScalarWhereInput | PasswordResetScalarWhereInput[]
   }
 
+  export type CardUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<CardCreateWithoutUsersInput, CardUncheckedCreateWithoutUsersInput> | CardCreateWithoutUsersInput[] | CardUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: CardCreateOrConnectWithoutUsersInput | CardCreateOrConnectWithoutUsersInput[]
+    upsert?: CardUpsertWithWhereUniqueWithoutUsersInput | CardUpsertWithWhereUniqueWithoutUsersInput[]
+    set?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    disconnect?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    delete?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    update?: CardUpdateWithWhereUniqueWithoutUsersInput | CardUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: CardUpdateManyWithWhereWithoutUsersInput | CardUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: CardScalarWhereInput | CardScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput>
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput
@@ -14096,6 +14217,19 @@ export namespace Prisma {
     update?: PasswordResetUpdateWithWhereUniqueWithoutUserInput | PasswordResetUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: PasswordResetUpdateManyWithWhereWithoutUserInput | PasswordResetUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: PasswordResetScalarWhereInput | PasswordResetScalarWhereInput[]
+  }
+
+  export type CardUncheckedUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<CardCreateWithoutUsersInput, CardUncheckedCreateWithoutUsersInput> | CardCreateWithoutUsersInput[] | CardUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: CardCreateOrConnectWithoutUsersInput | CardCreateOrConnectWithoutUsersInput[]
+    upsert?: CardUpsertWithWhereUniqueWithoutUsersInput | CardUpsertWithWhereUniqueWithoutUsersInput[]
+    set?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    disconnect?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    delete?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    update?: CardUpdateWithWhereUniqueWithoutUsersInput | CardUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: CardUpdateManyWithWhereWithoutUsersInput | CardUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: CardScalarWhereInput | CardScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutPasswordResetInput = {
@@ -14482,6 +14616,12 @@ export namespace Prisma {
     connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
   }
 
+  export type UserCreateNestedManyWithoutCardsInput = {
+    create?: XOR<UserCreateWithoutCardsInput, UserUncheckedCreateWithoutCardsInput> | UserCreateWithoutCardsInput[] | UserUncheckedCreateWithoutCardsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCardsInput | UserCreateOrConnectWithoutCardsInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
   export type TagUncheckedCreateNestedManyWithoutCardsInput = {
     create?: XOR<TagCreateWithoutCardsInput, TagUncheckedCreateWithoutCardsInput> | TagCreateWithoutCardsInput[] | TagUncheckedCreateWithoutCardsInput[]
     connectOrCreate?: TagCreateOrConnectWithoutCardsInput | TagCreateOrConnectWithoutCardsInput[]
@@ -14492,6 +14632,12 @@ export namespace Prisma {
     create?: XOR<FileCreateWithoutCardsInput, FileUncheckedCreateWithoutCardsInput> | FileCreateWithoutCardsInput[] | FileUncheckedCreateWithoutCardsInput[]
     connectOrCreate?: FileCreateOrConnectWithoutCardsInput | FileCreateOrConnectWithoutCardsInput[]
     connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutCardsInput = {
+    create?: XOR<UserCreateWithoutCardsInput, UserUncheckedCreateWithoutCardsInput> | UserCreateWithoutCardsInput[] | UserUncheckedCreateWithoutCardsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCardsInput | UserCreateOrConnectWithoutCardsInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -14536,6 +14682,19 @@ export namespace Prisma {
     deleteMany?: FileScalarWhereInput | FileScalarWhereInput[]
   }
 
+  export type UserUpdateManyWithoutCardsNestedInput = {
+    create?: XOR<UserCreateWithoutCardsInput, UserUncheckedCreateWithoutCardsInput> | UserCreateWithoutCardsInput[] | UserUncheckedCreateWithoutCardsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCardsInput | UserCreateOrConnectWithoutCardsInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutCardsInput | UserUpsertWithWhereUniqueWithoutCardsInput[]
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutCardsInput | UserUpdateWithWhereUniqueWithoutCardsInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutCardsInput | UserUpdateManyWithWhereWithoutCardsInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
   export type TagUncheckedUpdateManyWithoutCardsNestedInput = {
     create?: XOR<TagCreateWithoutCardsInput, TagUncheckedCreateWithoutCardsInput> | TagCreateWithoutCardsInput[] | TagUncheckedCreateWithoutCardsInput[]
     connectOrCreate?: TagCreateOrConnectWithoutCardsInput | TagCreateOrConnectWithoutCardsInput[]
@@ -14560,6 +14719,19 @@ export namespace Prisma {
     update?: FileUpdateWithWhereUniqueWithoutCardsInput | FileUpdateWithWhereUniqueWithoutCardsInput[]
     updateMany?: FileUpdateManyWithWhereWithoutCardsInput | FileUpdateManyWithWhereWithoutCardsInput[]
     deleteMany?: FileScalarWhereInput | FileScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutCardsNestedInput = {
+    create?: XOR<UserCreateWithoutCardsInput, UserUncheckedCreateWithoutCardsInput> | UserCreateWithoutCardsInput[] | UserUncheckedCreateWithoutCardsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCardsInput | UserCreateOrConnectWithoutCardsInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutCardsInput | UserUpsertWithWhereUniqueWithoutCardsInput[]
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutCardsInput | UserUpdateWithWhereUniqueWithoutCardsInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutCardsInput | UserUpdateManyWithWhereWithoutCardsInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type CardCreateNestedManyWithoutFilesInput = {
@@ -14879,6 +15051,43 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CardCreateWithoutUsersInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    name: string
+    description?: string | null
+    dueDateTime?: Date | string | null
+    cover?: string | null
+    status?: $Enums.CardStatus
+    isArchived?: boolean
+    index?: number
+    list: ListCreateNestedOneWithoutCardsInput
+    tags?: TagCreateNestedManyWithoutCardsInput
+    files?: FileCreateNestedManyWithoutCardsInput
+  }
+
+  export type CardUncheckedCreateWithoutUsersInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    name: string
+    description?: string | null
+    dueDateTime?: Date | string | null
+    cover?: string | null
+    status?: $Enums.CardStatus
+    isArchived?: boolean
+    index?: number
+    listId: string
+    tags?: TagUncheckedCreateNestedManyWithoutCardsInput
+    files?: FileUncheckedCreateNestedManyWithoutCardsInput
+  }
+
+  export type CardCreateOrConnectWithoutUsersInput = {
+    where: CardWhereUniqueInput
+    create: XOR<CardCreateWithoutUsersInput, CardUncheckedCreateWithoutUsersInput>
+  }
+
   export type AccountUpsertWithoutUserInput = {
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
     create: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput>
@@ -14961,6 +15170,39 @@ export namespace Prisma {
     userId?: StringFilter<"PasswordReset"> | string
   }
 
+  export type CardUpsertWithWhereUniqueWithoutUsersInput = {
+    where: CardWhereUniqueInput
+    update: XOR<CardUpdateWithoutUsersInput, CardUncheckedUpdateWithoutUsersInput>
+    create: XOR<CardCreateWithoutUsersInput, CardUncheckedCreateWithoutUsersInput>
+  }
+
+  export type CardUpdateWithWhereUniqueWithoutUsersInput = {
+    where: CardWhereUniqueInput
+    data: XOR<CardUpdateWithoutUsersInput, CardUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type CardUpdateManyWithWhereWithoutUsersInput = {
+    where: CardScalarWhereInput
+    data: XOR<CardUpdateManyMutationInput, CardUncheckedUpdateManyWithoutUsersInput>
+  }
+
+  export type CardScalarWhereInput = {
+    AND?: CardScalarWhereInput | CardScalarWhereInput[]
+    OR?: CardScalarWhereInput[]
+    NOT?: CardScalarWhereInput | CardScalarWhereInput[]
+    id?: StringFilter<"Card"> | string
+    createdAt?: DateTimeFilter<"Card"> | Date | string
+    updatedAt?: DateTimeFilter<"Card"> | Date | string
+    name?: StringFilter<"Card"> | string
+    description?: StringNullableFilter<"Card"> | string | null
+    dueDateTime?: DateTimeNullableFilter<"Card"> | Date | string | null
+    cover?: StringNullableFilter<"Card"> | string | null
+    status?: EnumCardStatusFilter<"Card"> | $Enums.CardStatus
+    isArchived?: BoolFilter<"Card"> | boolean
+    index?: IntFilter<"Card"> | number
+    listId?: StringFilter<"Card"> | string
+  }
+
   export type UserCreateWithoutPasswordResetInput = {
     id?: string
     createdAt?: Date | string
@@ -14970,6 +15212,7 @@ export namespace Prisma {
     salt: string
     account?: AccountCreateNestedOneWithoutUserInput
     MembersOnProjects?: MembersOnProjectsCreateNestedManyWithoutUserInput
+    cards?: CardCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutPasswordResetInput = {
@@ -14981,6 +15224,7 @@ export namespace Prisma {
     salt: string
     account?: AccountUncheckedCreateNestedOneWithoutUserInput
     MembersOnProjects?: MembersOnProjectsUncheckedCreateNestedManyWithoutUserInput
+    cards?: CardUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutPasswordResetInput = {
@@ -15008,6 +15252,7 @@ export namespace Prisma {
     salt?: StringFieldUpdateOperationsInput | string
     account?: AccountUpdateOneWithoutUserNestedInput
     MembersOnProjects?: MembersOnProjectsUpdateManyWithoutUserNestedInput
+    cards?: CardUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPasswordResetInput = {
@@ -15019,6 +15264,7 @@ export namespace Prisma {
     salt?: StringFieldUpdateOperationsInput | string
     account?: AccountUncheckedUpdateOneWithoutUserNestedInput
     MembersOnProjects?: MembersOnProjectsUncheckedUpdateManyWithoutUserNestedInput
+    cards?: CardUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserCreateWithoutAccountInput = {
@@ -15030,6 +15276,7 @@ export namespace Prisma {
     salt: string
     MembersOnProjects?: MembersOnProjectsCreateNestedManyWithoutUserInput
     passwordReset?: PasswordResetCreateNestedManyWithoutUserInput
+    cards?: CardCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutAccountInput = {
@@ -15041,6 +15288,7 @@ export namespace Prisma {
     salt: string
     MembersOnProjects?: MembersOnProjectsUncheckedCreateNestedManyWithoutUserInput
     passwordReset?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
+    cards?: CardUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutAccountInput = {
@@ -15068,6 +15316,7 @@ export namespace Prisma {
     salt?: StringFieldUpdateOperationsInput | string
     MembersOnProjects?: MembersOnProjectsUpdateManyWithoutUserNestedInput
     passwordReset?: PasswordResetUpdateManyWithoutUserNestedInput
+    cards?: CardUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountInput = {
@@ -15079,6 +15328,7 @@ export namespace Prisma {
     salt?: StringFieldUpdateOperationsInput | string
     MembersOnProjects?: MembersOnProjectsUncheckedUpdateManyWithoutUserNestedInput
     passwordReset?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+    cards?: CardUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserCreateWithoutMembersOnProjectsInput = {
@@ -15090,6 +15340,7 @@ export namespace Prisma {
     salt: string
     account?: AccountCreateNestedOneWithoutUserInput
     passwordReset?: PasswordResetCreateNestedManyWithoutUserInput
+    cards?: CardCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutMembersOnProjectsInput = {
@@ -15101,6 +15352,7 @@ export namespace Prisma {
     salt: string
     account?: AccountUncheckedCreateNestedOneWithoutUserInput
     passwordReset?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
+    cards?: CardUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutMembersOnProjectsInput = {
@@ -15155,6 +15407,7 @@ export namespace Prisma {
     salt?: StringFieldUpdateOperationsInput | string
     account?: AccountUpdateOneWithoutUserNestedInput
     passwordReset?: PasswordResetUpdateManyWithoutUserNestedInput
+    cards?: CardUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMembersOnProjectsInput = {
@@ -15166,6 +15419,7 @@ export namespace Prisma {
     salt?: StringFieldUpdateOperationsInput | string
     account?: AccountUncheckedUpdateOneWithoutUserNestedInput
     passwordReset?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+    cards?: CardUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type ProjectUpsertWithoutMembersOnProjectsInput = {
@@ -15512,6 +15766,7 @@ export namespace Prisma {
     index?: number
     list: ListCreateNestedOneWithoutCardsInput
     files?: FileCreateNestedManyWithoutCardsInput
+    users?: UserCreateNestedManyWithoutCardsInput
   }
 
   export type CardUncheckedCreateWithoutTagsInput = {
@@ -15527,6 +15782,7 @@ export namespace Prisma {
     index?: number
     listId: string
     files?: FileUncheckedCreateNestedManyWithoutCardsInput
+    users?: UserUncheckedCreateNestedManyWithoutCardsInput
   }
 
   export type CardCreateOrConnectWithoutTagsInput = {
@@ -15581,23 +15837,6 @@ export namespace Prisma {
     data: XOR<CardUpdateManyMutationInput, CardUncheckedUpdateManyWithoutTagsInput>
   }
 
-  export type CardScalarWhereInput = {
-    AND?: CardScalarWhereInput | CardScalarWhereInput[]
-    OR?: CardScalarWhereInput[]
-    NOT?: CardScalarWhereInput | CardScalarWhereInput[]
-    id?: StringFilter<"Card"> | string
-    createdAt?: DateTimeFilter<"Card"> | Date | string
-    updatedAt?: DateTimeFilter<"Card"> | Date | string
-    name?: StringFilter<"Card"> | string
-    description?: StringNullableFilter<"Card"> | string | null
-    dueDateTime?: DateTimeNullableFilter<"Card"> | Date | string | null
-    cover?: StringNullableFilter<"Card"> | string | null
-    status?: EnumCardStatusFilter<"Card"> | $Enums.CardStatus
-    isArchived?: BoolFilter<"Card"> | boolean
-    index?: IntFilter<"Card"> | number
-    listId?: StringFilter<"Card"> | string
-  }
-
   export type BoardCreateWithoutListsInput = {
     id?: string
     createdAt?: Date | string
@@ -15636,6 +15875,7 @@ export namespace Prisma {
     index?: number
     tags?: TagCreateNestedManyWithoutCardsInput
     files?: FileCreateNestedManyWithoutCardsInput
+    users?: UserCreateNestedManyWithoutCardsInput
   }
 
   export type CardUncheckedCreateWithoutListInput = {
@@ -15651,6 +15891,7 @@ export namespace Prisma {
     index?: number
     tags?: TagUncheckedCreateNestedManyWithoutCardsInput
     files?: FileUncheckedCreateNestedManyWithoutCardsInput
+    users?: UserUncheckedCreateNestedManyWithoutCardsInput
   }
 
   export type CardCreateOrConnectWithoutListInput = {
@@ -15785,6 +16026,35 @@ export namespace Prisma {
     create: XOR<FileCreateWithoutCardsInput, FileUncheckedCreateWithoutCardsInput>
   }
 
+  export type UserCreateWithoutCardsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    email: string
+    password: string
+    salt: string
+    account?: AccountCreateNestedOneWithoutUserInput
+    MembersOnProjects?: MembersOnProjectsCreateNestedManyWithoutUserInput
+    passwordReset?: PasswordResetCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCardsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    email: string
+    password: string
+    salt: string
+    account?: AccountUncheckedCreateNestedOneWithoutUserInput
+    MembersOnProjects?: MembersOnProjectsUncheckedCreateNestedManyWithoutUserInput
+    passwordReset?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCardsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCardsInput, UserUncheckedCreateWithoutCardsInput>
+  }
+
   export type ListUpsertWithoutCardsInput = {
     update: XOR<ListUpdateWithoutCardsInput, ListUncheckedUpdateWithoutCardsInput>
     create: XOR<ListCreateWithoutCardsInput, ListUncheckedCreateWithoutCardsInput>
@@ -15862,6 +16132,34 @@ export namespace Prisma {
     size?: IntFilter<"File"> | number
   }
 
+  export type UserUpsertWithWhereUniqueWithoutCardsInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutCardsInput, UserUncheckedUpdateWithoutCardsInput>
+    create: XOR<UserCreateWithoutCardsInput, UserUncheckedCreateWithoutCardsInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutCardsInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutCardsInput, UserUncheckedUpdateWithoutCardsInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutCardsInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutCardsInput>
+  }
+
+  export type UserScalarWhereInput = {
+    AND?: UserScalarWhereInput | UserScalarWhereInput[]
+    OR?: UserScalarWhereInput[]
+    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
+    id?: StringFilter<"User"> | string
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
+    email?: StringFilter<"User"> | string
+    password?: StringFilter<"User"> | string
+    salt?: StringFilter<"User"> | string
+  }
+
   export type CardCreateWithoutFilesInput = {
     id?: string
     createdAt?: Date | string
@@ -15875,6 +16173,7 @@ export namespace Prisma {
     index?: number
     list: ListCreateNestedOneWithoutCardsInput
     tags?: TagCreateNestedManyWithoutCardsInput
+    users?: UserCreateNestedManyWithoutCardsInput
   }
 
   export type CardUncheckedCreateWithoutFilesInput = {
@@ -15890,6 +16189,7 @@ export namespace Prisma {
     index?: number
     listId: string
     tags?: TagUncheckedCreateNestedManyWithoutCardsInput
+    users?: UserUncheckedCreateNestedManyWithoutCardsInput
   }
 
   export type CardCreateOrConnectWithoutFilesInput = {
@@ -15971,6 +16271,52 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expirationTime?: DateTimeFieldUpdateOperationsInput | Date | string
     newPassword?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CardUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDateTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cover?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCardStatusFieldUpdateOperationsInput | $Enums.CardStatus
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    index?: IntFieldUpdateOperationsInput | number
+    list?: ListUpdateOneRequiredWithoutCardsNestedInput
+    tags?: TagUpdateManyWithoutCardsNestedInput
+    files?: FileUpdateManyWithoutCardsNestedInput
+  }
+
+  export type CardUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDateTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cover?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCardStatusFieldUpdateOperationsInput | $Enums.CardStatus
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    index?: IntFieldUpdateOperationsInput | number
+    listId?: StringFieldUpdateOperationsInput | string
+    tags?: TagUncheckedUpdateManyWithoutCardsNestedInput
+    files?: FileUncheckedUpdateManyWithoutCardsNestedInput
+  }
+
+  export type CardUncheckedUpdateManyWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDateTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cover?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCardStatusFieldUpdateOperationsInput | $Enums.CardStatus
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    index?: IntFieldUpdateOperationsInput | number
+    listId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MembersOnProjectsCreateManyProjectInput = {
@@ -16122,6 +16468,7 @@ export namespace Prisma {
     index?: IntFieldUpdateOperationsInput | number
     list?: ListUpdateOneRequiredWithoutCardsNestedInput
     files?: FileUpdateManyWithoutCardsNestedInput
+    users?: UserUpdateManyWithoutCardsNestedInput
   }
 
   export type CardUncheckedUpdateWithoutTagsInput = {
@@ -16137,6 +16484,7 @@ export namespace Prisma {
     index?: IntFieldUpdateOperationsInput | number
     listId?: StringFieldUpdateOperationsInput | string
     files?: FileUncheckedUpdateManyWithoutCardsNestedInput
+    users?: UserUncheckedUpdateManyWithoutCardsNestedInput
   }
 
   export type CardUncheckedUpdateManyWithoutTagsInput = {
@@ -16179,6 +16527,7 @@ export namespace Prisma {
     index?: IntFieldUpdateOperationsInput | number
     tags?: TagUpdateManyWithoutCardsNestedInput
     files?: FileUpdateManyWithoutCardsNestedInput
+    users?: UserUpdateManyWithoutCardsNestedInput
   }
 
   export type CardUncheckedUpdateWithoutListInput = {
@@ -16194,6 +16543,7 @@ export namespace Prisma {
     index?: IntFieldUpdateOperationsInput | number
     tags?: TagUncheckedUpdateManyWithoutCardsNestedInput
     files?: FileUncheckedUpdateManyWithoutCardsNestedInput
+    users?: UserUncheckedUpdateManyWithoutCardsNestedInput
   }
 
   export type CardUncheckedUpdateManyWithoutListInput = {
@@ -16269,6 +16619,39 @@ export namespace Prisma {
     size?: IntFieldUpdateOperationsInput | number
   }
 
+  export type UserUpdateWithoutCardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    salt?: StringFieldUpdateOperationsInput | string
+    account?: AccountUpdateOneWithoutUserNestedInput
+    MembersOnProjects?: MembersOnProjectsUpdateManyWithoutUserNestedInput
+    passwordReset?: PasswordResetUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    salt?: StringFieldUpdateOperationsInput | string
+    account?: AccountUncheckedUpdateOneWithoutUserNestedInput
+    MembersOnProjects?: MembersOnProjectsUncheckedUpdateManyWithoutUserNestedInput
+    passwordReset?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutCardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    salt?: StringFieldUpdateOperationsInput | string
+  }
+
   export type CardUpdateWithoutFilesInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16282,6 +16665,7 @@ export namespace Prisma {
     index?: IntFieldUpdateOperationsInput | number
     list?: ListUpdateOneRequiredWithoutCardsNestedInput
     tags?: TagUpdateManyWithoutCardsNestedInput
+    users?: UserUpdateManyWithoutCardsNestedInput
   }
 
   export type CardUncheckedUpdateWithoutFilesInput = {
@@ -16297,6 +16681,7 @@ export namespace Prisma {
     index?: IntFieldUpdateOperationsInput | number
     listId?: StringFieldUpdateOperationsInput | string
     tags?: TagUncheckedUpdateManyWithoutCardsNestedInput
+    users?: UserUncheckedUpdateManyWithoutCardsNestedInput
   }
 
   export type CardUncheckedUpdateManyWithoutFilesInput = {

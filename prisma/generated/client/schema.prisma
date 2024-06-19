@@ -23,6 +23,8 @@ model User {
 
   passwordReset PasswordReset[]
 
+  cards Card[] @relation()
+
   @@map("user")
 }
 
@@ -153,6 +155,8 @@ model Card {
   tags Tag[] @relation()
 
   files File[]
+
+  users User[] @relation()
 
   @@map("card")
 }

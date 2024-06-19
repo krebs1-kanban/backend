@@ -155,7 +155,10 @@ export class CardDto implements card {
   @ApiProperty({ type: [FileDto] })
   files: FileDto[];
 
-  constructor({ tags, files, ...data }: Partial<CardDto>) {
+  @ApiProperty()
+  user_ids: string[];
+
+  constructor({ tags, files, user_ids, ...data }: Partial<CardDto>) {
     Object.assign(this, data);
 
     if (tags) {
@@ -163,6 +166,9 @@ export class CardDto implements card {
     }
     if (files) {
       this.files = files.map((val) => new FileDto(val));
+    }
+    if (user_ids) {
+      this.user_ids = user_ids;
     }
   }
 }

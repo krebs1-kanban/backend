@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import {
+  BoardWithDetailsDto,
   CreateBoardDto,
   MoveCardDto,
   MoveListDto,
@@ -17,7 +18,10 @@ export class BoardService {
     return result;
   }
 
-  async findById(id: string, params?: GetByIdQueryParams) {
+  async findById(
+    id: string,
+    params?: GetByIdQueryParams,
+  ): Promise<BoardWithDetailsDto> {
     const result = await this.client.board.findUnique({
       where: { id: id },
       include: {
@@ -38,6 +42,14 @@ export class BoardService {
                 files: {
                   orderBy: {
                     createdAt: 'desc',
+                  },
+                },
+                users: {
+                  select: {
+                    id: true,
+                  },
+                  orderBy: {
+                    id: 'asc',
                   },
                 },
               },
@@ -62,7 +74,16 @@ export class BoardService {
 
     if (!result) throw new NotFoundException({ type: 'board-not-found' });
 
-    return result;
+    return {
+      ...result,
+      lists: result.lists.map((list) => ({
+        ...list,
+        cards: list.cards.map((card) => ({
+          ...card,
+          user_ids: card.users.map((user) => user.id),
+        })),
+      })),
+    };
   }
 
   async findByCardId(id: string) {

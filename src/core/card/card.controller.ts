@@ -30,6 +30,7 @@ import {
   DetachFileDto,
   UpdateCardDto,
 } from './dto';
+import { SetExecutorDto } from './dto/set-executor.dto';
 
 @Controller('cards')
 @ApiTags('cards')
@@ -43,6 +44,13 @@ export class CardController {
   @ApiCreatedResponse({ type: CardDto })
   async create(@Body() body: CreateCardDto) {
     return new CardDto(await this.cardService.create(body));
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Post('set-executor')
+  @HttpCode(HttpStatus.CREATED)
+  async setExecutor(@Body() body: SetExecutorDto) {
+    await this.cardService.setExecutor(body);
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
